@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+OpenIDE-Module-Java-Dependencies: Java > 1.8
+OpenIDE-Module-Display-Category: SNAP Community
+OpenIDE-Module-Specification-Version: 1.0.0
+AutoUpdate-Show-In-Client: true
+AutoUpdate-Essential-Module: true
+OpenIDE-Module-Layer: org/esa/s3tbx/regrid/aatsr/layer.xml
