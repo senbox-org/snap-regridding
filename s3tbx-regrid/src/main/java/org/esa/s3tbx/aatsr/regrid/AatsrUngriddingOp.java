@@ -1,7 +1,11 @@
 package org.esa.s3tbx.aatsr.regrid;
 
-import org.esa.snap.core.datamodel.*;
-import com.bc.ceres.glevel.MultiLevelImage;
+import org.esa.snap.core.datamodel.Band;
+import org.esa.snap.core.datamodel.MetadataAttribute;
+import org.esa.snap.core.datamodel.MetadataElement;
+import org.esa.snap.core.datamodel.Product;
+import org.esa.snap.core.datamodel.ProductData;
+import org.esa.snap.core.datamodel.ProductNodeGroup;
 import org.esa.snap.core.gpf.OperatorException;
 import org.esa.snap.core.gpf.OperatorSpi;
 import org.esa.snap.core.gpf.annotations.OperatorMetadata;
@@ -107,13 +111,19 @@ public class AatsrUngriddingOp extends PixelOperator {
 
         // should the new bands be created here or in step 3?
 
-        targetProduct.addBand("Nadir View Latitude", ProductData.TYPE_FLOAT32);
-        targetProduct.addBand("Nadir View Longitude", ProductData.TYPE_FLOAT32);
-        targetProduct.addBand("Nadir View Acquisition Times", ProductData.TYPE_FLOAT32);
+        final Band nadirViewLatitudeBand = targetProduct.addBand("Nadir View Latitude", ProductData.TYPE_FLOAT32);
+        setNoDataValues(nadirViewLatitudeBand);
+        final Band nadirViewLongitudeBand = targetProduct.addBand("Nadir View Longitude", ProductData.TYPE_FLOAT32);
+        setNoDataValues(nadirViewLongitudeBand);
+        final Band nadirViewTimesBand = targetProduct.addBand("Nadir View Acquisition Times", ProductData.TYPE_FLOAT32);
+        setNoDataValues(nadirViewTimesBand);
 
-        targetProduct.addBand("Forward View Latitude", ProductData.TYPE_FLOAT32);
-        targetProduct.addBand("Forward View Longitude", ProductData.TYPE_FLOAT32);
-        targetProduct.addBand("Forward View Acquisition Times", ProductData.TYPE_FLOAT32);
+        final Band forwardViewLatitudeBand = targetProduct.addBand("Forward View Latitude", ProductData.TYPE_FLOAT32);
+        setNoDataValues(forwardViewLatitudeBand);
+        final Band forwardViewLongitudeBand = targetProduct.addBand("Forward View Longitude", ProductData.TYPE_FLOAT32);
+        setNoDataValues(forwardViewLongitudeBand);
+        final Band forwardViewTimesBand = targetProduct.addBand("Forward View Acquisition Times", ProductData.TYPE_FLOAT32);
+        setNoDataValues(forwardViewTimesBand);
 
         if (enableFOV) {
             targetProduct.addBand("Nadir View Pixel FOV Along Track", ProductData.TYPE_FLOAT32);
@@ -124,6 +134,11 @@ public class AatsrUngriddingOp extends PixelOperator {
 
         //change target product dimensions if necessary
         return targetProduct;
+    }
+
+    private static void setNoDataValues(Band band) {
+        band.setNoDataValue(-999999.0);
+        band.setNoDataValueUsed(true);
     }
 
     // PointOperator::initialise() step 3
