@@ -118,11 +118,11 @@ public class AatsrUngriddingOp extends PixelOperator {
         final Band nadirViewTimesBand = targetProduct.addBand("nadir_view_acquisition_time", ProductData.TYPE_FLOAT32);
         setNoDataValues(nadirViewTimesBand);
 
-        final Band forwardViewLatitudeBand = targetProduct.addBand("forward_view_latitude", ProductData.TYPE_FLOAT32);
+        final Band forwardViewLatitudeBand = targetProduct.addBand("fward_view_latitude", ProductData.TYPE_FLOAT32);
         setNoDataValues(forwardViewLatitudeBand);
-        final Band forwardViewLongitudeBand = targetProduct.addBand("forward_view_longitude", ProductData.TYPE_FLOAT32);
+        final Band forwardViewLongitudeBand = targetProduct.addBand("fward_view_longitude", ProductData.TYPE_FLOAT32);
         setNoDataValues(forwardViewLongitudeBand);
-        final Band forwardViewTimesBand = targetProduct.addBand("forward_view_acquisition_time", ProductData.TYPE_FLOAT32);
+        final Band forwardViewTimesBand = targetProduct.addBand("fward_view_acquisition_time", ProductData.TYPE_FLOAT32);
         setNoDataValues(forwardViewTimesBand);
 
         if (enableFOV) {
@@ -160,13 +160,13 @@ public class AatsrUngriddingOp extends PixelOperator {
     // PointOperator::initialise() step 5
     @Override
     protected void configureTargetSamples(TargetSampleConfigurer sampleConfigurer) throws OperatorException {
-        sampleConfigurer.defineSample(0, "Nadir View Latitude");
-        sampleConfigurer.defineSample(1, "Nadir View Longitude");
-        sampleConfigurer.defineSample(2, "Nadir View Acquisition Times");
+        sampleConfigurer.defineSample(0, "nadir_view_latitude");
+        sampleConfigurer.defineSample(1, "nadir_view_longitude");
+        sampleConfigurer.defineSample(2, "nadir_view_acquisition_time");
 
-        sampleConfigurer.defineSample(3, "Forward View Latitude");
-        sampleConfigurer.defineSample(4, "Forward View Longitude");
-        sampleConfigurer.defineSample(5, "Forward View Acquisition Times");
+        sampleConfigurer.defineSample(3, "fward_view_latitude");
+        sampleConfigurer.defineSample(4, "fward_view_longitude");
+        sampleConfigurer.defineSample(5, "fward_view_acquisition_time");
 
         if (enableFOV) {
             sampleConfigurer.defineSample(6, "Nadir View Pixel FOV Along Track");
