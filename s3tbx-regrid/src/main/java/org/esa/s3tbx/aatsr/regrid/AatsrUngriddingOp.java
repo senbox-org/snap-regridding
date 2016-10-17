@@ -34,26 +34,23 @@ import java.util.List;
 )
 public class AatsrUngriddingOp extends PixelOperator {
 
-    @SourceProduct (description = "(A)ATSR-1/2 source product (Envisat *.N1 format)")
+    @SourceProduct(description = "(A)ATSR-1/2 source product (Envisat *.N1 format)")
     Product sourceProduct;
 
-    @TargetProduct (description = "e.g. hdf5 or netcdf4 cf")
+    @TargetProduct(description = "e.g. hdf5 or netcdf4 cf")
     Product targetProduct;
 
     // notNull does not work - test is applied in dialog after processing has occurred?
-    @Parameter (notNull = false, description = "L1B characterisation file is needed to specify first forward pixel and first nadir pixel")
+    @Parameter(notNull = false, description = "L1B characterisation file is needed to specify first forward pixel and first nadir pixel")
     private File L1BCharacterisationFile;
 
-    @Parameter (label = "Pixel Corner Reference", defaultValue = "true", description = "Choose the pixel coordinate reference point for use in the output file. \nCheck for Corner (default), un-check for Centre.")
+    @Parameter(label = "Pixel Corner Reference", defaultValue = "true", description = "Choose the pixel coordinate reference point for use in the output file. \nCheck for Corner (default), un-check for Centre.")
     private boolean cornerReferenceFlag = true;
 
-    @Parameter (label = "Flip new bands", defaultValue = "true", description = "Reverse pixel order in each row (511-x) for compatibility with SNAP display")
-    private boolean flipEastWest = true;
-
-    @Parameter (label = "Topographic corrections to tie points", defaultValue = "false", description = "Option to apply topographic corrections to tie points")
+    @Parameter(label = "Topographic corrections to tie points", defaultValue = "false", description = "Option to apply topographic corrections to tie points")
     private boolean topographicFlag = false;
 
-    @Parameter (defaultValue = "0.05", description = "Distance (image coordinates) pixel can be from tie-point to have topo correction applied")
+    @Parameter(defaultValue = "0.05", description = "Distance (image coordinates) pixel can be from tie-point to have topo correction applied")
     private double topographyHomogenity = 0.05;
 
     //@Parameter (label = "Include FOV (Experimental!)", defaultValue = "false", description = "Adds four bands to indicate field of view.\nAn FOV file is required only if this is checked.")
@@ -81,6 +78,7 @@ public class AatsrUngriddingOp extends PixelOperator {
     //default values as given in the technical note
     private final static int DEFAULT_FIRST_FORWARD_PIXEL = 1305;
     private final static int DEFAULT_FIRST_NADIR_PIXEL = 213;
+
     // PointOperator::initialise() step 1
     @Override
     protected void prepareInputs() throws OperatorException {
@@ -184,23 +182,20 @@ public class AatsrUngriddingOp extends PixelOperator {
 
         int row = y;
         int pixel = x;
-                //Workaround for compatibility with SNAP
-        if (flipEastWest) {
-            pixel = PIXELS_PER_ROW - 1 - x;
-        }
+        pixel = PIXELS_PER_ROW - 1 - x;
 
         int[] pixelRelativeNumbers = {0, 0};
         double[] pixelNewPositionsAndTimes = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
         Calculator.getPixelPositionsAcquisitionTimes(row, pixel,
-                this.s0,
-                this.NADIR_VIEW_SCAN_PIX_NUM_ADS_Records,
-                this.FWARD_VIEW_SCAN_PIX_NUM_ADS_Records,
-                this.SCAN_PIXEL_X_AND_Y_ADS_Records,
-                this.GEOLOCATION_ADS_Records,
-                this.scanYCoords,
-                pixelNewPositionsAndTimes,
-                pixelRelativeNumbers,
-                this.parameters );
+                                                     this.s0,
+                                                     this.NADIR_VIEW_SCAN_PIX_NUM_ADS_Records,
+                                                     this.FWARD_VIEW_SCAN_PIX_NUM_ADS_Records,
+                                                     this.SCAN_PIXEL_X_AND_Y_ADS_Records,
+                                                     this.GEOLOCATION_ADS_Records,
+                                                     this.scanYCoords,
+                                                     pixelNewPositionsAndTimes,
+                                                     pixelRelativeNumbers,
+                                                     this.parameters);
 
         targetSamples[0].set(pixelNewPositionsAndTimes[0]);
         targetSamples[1].set(pixelNewPositionsAndTimes[1]);
@@ -224,7 +219,7 @@ public class AatsrUngriddingOp extends PixelOperator {
         }
     }
 
-    private void prepareInputParameters(){
+    private void prepareInputParameters() {
         this.parameters = new InputParameters();
 
         // Traceability to original command line arguments...
@@ -297,7 +292,7 @@ public class AatsrUngriddingOp extends PixelOperator {
         //        parameters.y2;
     }
 
-    private void prepareMetadata(){
+    private void prepareMetadata() {
         // Get the ADS from the product
         MetadataElement metadataRoot = sourceProduct.getMetadataRoot();
         this.NADIR_VIEW_SCAN_PIX_NUM_ADS_Records = metadataRoot.getElement("NADIR_VIEW_SCAN_PIX_NUM_ADS").getElementGroup();
