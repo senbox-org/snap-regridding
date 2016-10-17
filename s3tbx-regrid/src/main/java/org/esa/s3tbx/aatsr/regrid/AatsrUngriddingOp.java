@@ -41,7 +41,7 @@ public class AatsrUngriddingOp extends PixelOperator {
     Product targetProduct;
 
     // notNull does not work - test is applied in dialog after processing has occurred?
-    @Parameter (/*notNull = true, notEmpty = true,*/ description = "L1B characterisation file is needed to specify first forward pixel and first nadir pixel")
+    @Parameter (notNull = false, description = "L1B characterisation file is needed to specify first forward pixel and first nadir pixel")
     private File L1BCharacterisationFile;
 
     @Parameter (label = "Pixel Corner Reference", defaultValue = "true", description = "Choose the pixel coordinate reference point for use in the output file. \nCheck for Corner (default), un-check for Centre.")
@@ -77,8 +77,10 @@ public class AatsrUngriddingOp extends PixelOperator {
     private int s0;    // s0 scan number of first record = 32
     private List<List<Double>> pixelProjectionMap;
 
-    private final int PIXELS_PER_ROW = 512;
-
+    private final static int PIXELS_PER_ROW = 512;
+    //default values as given in the technical note
+    private final static int DEFAULT_FIRST_FORWARD_PIXEL = 1305;
+    private final static int DEFAULT_FIRST_NADIR_PIXEL = 213;
     // PointOperator::initialise() step 1
     @Override
     protected void prepareInputs() throws OperatorException {
@@ -231,7 +233,12 @@ public class AatsrUngriddingOp extends PixelOperator {
         // Not required - input file is passed in as @SourceProduct
 
         //1	<l1b-characterisation-file> 	"./CH1_Files/ATS_CH1_AX"	L1B characterisation file
-        parameters.parseCharacterisationFile(this.L1BCharacterisationFile.getPath());
+        if (L1BCharacterisationFile != null) {
+            parameters.parseCharacterisationFile(this.L1BCharacterisationFile.getPath());
+        } else {
+            parameters.firstForwardPixel = DEFAULT_FIRST_FORWARD_PIXEL;
+            parameters.firstNadirPixel = DEFAULT_FIRST_NADIR_PIXEL;
+        }
         //parameters.parseCharacterisationFile("C:\\dev\\GBT-UBT-Tool v1.6\\CH1_Files\\ATS_CH1_AX");
         // Sets the following:
         //        parameters.firstForwardPixel;
