@@ -25,4 +25,12 @@
         </folder>
     </folder>
 
+    <folder name="Services">
+        <folder name="javahelp">
+            <file name="org-esa-s3tbx-aatsr-regrid-AatsrUngriddingOp-helpset.xml" url="helpset.xml">
+                <attr name="position" intvalue="4601"/>
+            </file>
+        </folder>
+    </folder>
+
 </filesystem>
