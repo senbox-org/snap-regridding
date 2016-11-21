@@ -112,17 +112,29 @@ public class AatsrUngriddingOp extends PixelOperator {
         // should the new bands be created here or in step 3?
 
         final Band nadirViewLatitudeBand = targetProduct.addBand("latitude_nadir", ProductData.TYPE_FLOAT32);
+        nadirViewLatitudeBand.setDescription("Latitude, nadir view");
+        nadirViewLatitudeBand.setUnit("deg");
         setNoDataValues(nadirViewLatitudeBand);
         final Band nadirViewLongitudeBand = targetProduct.addBand("longitude_nadir", ProductData.TYPE_FLOAT32);
+        nadirViewLongitudeBand.setDescription("Longitude, nadir view");
+        nadirViewLongitudeBand.setUnit("deg");
         setNoDataValues(nadirViewLongitudeBand);
         final Band nadirViewTimesBand = targetProduct.addBand("acquisition_time_nadir", ProductData.TYPE_FLOAT32);
+        nadirViewTimesBand.setDescription("Acquisition time, nadir");
+        nadirViewTimesBand.setUnit("Days since 1-1-2000 (MJD 2000)");
         setNoDataValues(nadirViewTimesBand);
 
         final Band forwardViewLatitudeBand = targetProduct.addBand("latitude_fward", ProductData.TYPE_FLOAT32);
+        forwardViewLatitudeBand.setDescription("Latitude, forward view");
+        forwardViewLatitudeBand.setUnit("deg");
         setNoDataValues(forwardViewLatitudeBand);
         final Band forwardViewLongitudeBand = targetProduct.addBand("longitude_fward", ProductData.TYPE_FLOAT32);
+        forwardViewLongitudeBand.setDescription("Longitude, forward view");
+        forwardViewLongitudeBand.setUnit("deg");
         setNoDataValues(forwardViewLongitudeBand);
         final Band forwardViewTimesBand = targetProduct.addBand("acquisition_time_fward", ProductData.TYPE_FLOAT32);
+        forwardViewTimesBand.setDescription("Acquisition time, fward");
+        forwardViewTimesBand.setUnit("Days since 1-1-2000 (MJD 2000)");
         setNoDataValues(forwardViewTimesBand);
 
         if (enableFOV) {
