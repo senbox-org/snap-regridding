@@ -6,22 +6,24 @@
             <file name="org-esa-s3tbx-aatsr-regrid-AatsrUngriddingOpAction.instance">
                 <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
                 <attr name="delegate" methodvalue="org.esa.snap.core.gpf.ui.DefaultOperatorAction.create"/>
-                <attr name="displayName" stringvalue="Ungrid Aatsr"/>
+                <attr name="displayName" stringvalue="Ungrid AATSR"/>
                 <attr name="operatorName" stringvalue="AATSR.Ungrid"/>
-                <attr name="dialogTitle" stringvalue="Ungrid Aatsr"/>
+                <attr name="dialogTitle" stringvalue="Ungrid AATSR"/>
                 <attr name="targetProductNameSuffix" stringvalue="_ungridded"/>
-                <attr name="ShortDescription" stringvalue="Ungrids ATSR L1B products"/>
+                <attr name="ShortDescription" stringvalue="Ungrids (A)ATSR L1B products"/>
             </file>
         </folder>
     </folder>
 
     <folder name="Menu">
-        <folder name="Raster">
-            <file name="org-esa-s3tbx-aatsr-regrid-AatsrUngriddingOpAction.shadow">
-                <attr name="originalFile"
-                      stringvalue="Actions/Operators/org-esa-s3tbx-aatsr-regrid-AatsrUngriddingOpAction.instance"/>
-                <attr name="position" intvalue="75"/>
-            </file>
+        <folder name="Optical">
+            <folder name="Geometric">
+                <file name="org-esa-s3tbx-aatsr-regrid-AatsrUngriddingOpAction.shadow">
+                    <attr name="originalFile"
+                          stringvalue="Actions/Operators/org-esa-s3tbx-aatsr-regrid-AatsrUngriddingOpAction.instance"/>
+                    <attr name="position" intvalue="75"/>
+                </file>
+            </folder>
         </folder>
     </folder>
 

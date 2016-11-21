@@ -28,9 +28,9 @@ import java.util.List;
  * @author Alasdhair Beaton (Telespazio VEGA)
  * @author Philip Beavis (Telespazio VEGA)
  */
-@OperatorMetadata(description = "Ungrids ATSR L1B products and extracts geolocation and pixel field of view data.",
-        alias = "AATSR.Ungrid", authors = "Alasdhair Beaton, Philip Beavis",
-        category = "Raster", label = "AATSR Ungridding"
+@OperatorMetadata(description = "Ungrids (A)ATSR L1B products and extracts geolocation and pixel field of view data.",
+        alias = "AATSR.Ungrid", authors = "Alasdhair Beaton, Philip Beavis", version = "1.0",
+        category = "Optical/Geometric", label = "AATSR Ungridding", copyright = "(c) 2016 by Telespazio VEGA UK Ltd."
 )
 public class AatsrUngriddingOp extends PixelOperator {
 
@@ -44,7 +44,7 @@ public class AatsrUngriddingOp extends PixelOperator {
     @Parameter(notNull = false, description = "L1B characterisation file is needed to specify first forward pixel and first nadir pixel")
     private File L1BCharacterisationFile;
 
-    @Parameter(label = "Pixel Corner Reference", defaultValue = "true", description = "Choose the pixel coordinate reference point for use in the output file. \nCheck for Corner (default), un-check for Centre.")
+    @Parameter(label = "Use pixel corner as reference", defaultValue = "true", description = "Choose the pixel coordinate reference point for use in the output file. \nCheck for Corner (default), un-check for Centre.")
     private boolean cornerReferenceFlag = true;
 
     @Parameter(label = "Topographic corrections to tie points", defaultValue = "false", description = "Option to apply topographic corrections to tie points")
@@ -111,18 +111,18 @@ public class AatsrUngriddingOp extends PixelOperator {
 
         // should the new bands be created here or in step 3?
 
-        final Band nadirViewLatitudeBand = targetProduct.addBand("nadir_view_latitude", ProductData.TYPE_FLOAT32);
+        final Band nadirViewLatitudeBand = targetProduct.addBand("latitude_nadir", ProductData.TYPE_FLOAT32);
         setNoDataValues(nadirViewLatitudeBand);
-        final Band nadirViewLongitudeBand = targetProduct.addBand("nadir_view_longitude", ProductData.TYPE_FLOAT32);
+        final Band nadirViewLongitudeBand = targetProduct.addBand("longitude_nadir", ProductData.TYPE_FLOAT32);
         setNoDataValues(nadirViewLongitudeBand);
-        final Band nadirViewTimesBand = targetProduct.addBand("nadir_view_acquisition_time", ProductData.TYPE_FLOAT32);
+        final Band nadirViewTimesBand = targetProduct.addBand("acquisition_time_nadir", ProductData.TYPE_FLOAT32);
         setNoDataValues(nadirViewTimesBand);
 
-        final Band forwardViewLatitudeBand = targetProduct.addBand("fward_view_latitude", ProductData.TYPE_FLOAT32);
+        final Band forwardViewLatitudeBand = targetProduct.addBand("latitude_fward", ProductData.TYPE_FLOAT32);
         setNoDataValues(forwardViewLatitudeBand);
-        final Band forwardViewLongitudeBand = targetProduct.addBand("fward_view_longitude", ProductData.TYPE_FLOAT32);
+        final Band forwardViewLongitudeBand = targetProduct.addBand("longitude_fward", ProductData.TYPE_FLOAT32);
         setNoDataValues(forwardViewLongitudeBand);
-        final Band forwardViewTimesBand = targetProduct.addBand("fward_view_acquisition_time", ProductData.TYPE_FLOAT32);
+        final Band forwardViewTimesBand = targetProduct.addBand("acquisition_time_fward", ProductData.TYPE_FLOAT32);
         setNoDataValues(forwardViewTimesBand);
 
         if (enableFOV) {
@@ -160,13 +160,13 @@ public class AatsrUngriddingOp extends PixelOperator {
     // PointOperator::initialise() step 5
     @Override
     protected void configureTargetSamples(TargetSampleConfigurer sampleConfigurer) throws OperatorException {
-        sampleConfigurer.defineSample(0, "nadir_view_latitude");
-        sampleConfigurer.defineSample(1, "nadir_view_longitude");
-        sampleConfigurer.defineSample(2, "nadir_view_acquisition_time");
+        sampleConfigurer.defineSample(0, "latitude_nadir");
+        sampleConfigurer.defineSample(1, "longitude_nadir");
+        sampleConfigurer.defineSample(2, "acquisition_time_nadir");
 
-        sampleConfigurer.defineSample(3, "fward_view_latitude");
-        sampleConfigurer.defineSample(4, "fward_view_longitude");
-        sampleConfigurer.defineSample(5, "fward_view_acquisition_time");
+        sampleConfigurer.defineSample(3, "latitude_fward");
+        sampleConfigurer.defineSample(4, "longitude_fward");
+        sampleConfigurer.defineSample(5, "acquisition_time_fward");
 
         if (enableFOV) {
             sampleConfigurer.defineSample(6, "Nadir View Pixel FOV Along Track");
