@@ -179,14 +179,10 @@ public class AatsrUngriddingOp extends PixelOperator {
     // Called from PixelOperator::computeTileStack()
     @Override
     protected void computePixel(int x, int y, Sample[] sourceSamples, WritableSample[] targetSamples) {
-
-        int row = y;
-        int pixel = x;
-        pixel = PIXELS_PER_ROW - 1 - x;
-
+        int pixel = PIXELS_PER_ROW - 1 - x;
         int[] pixelRelativeNumbers = {0, 0};
         double[] pixelNewPositionsAndTimes = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-        Calculator.getPixelPositionsAcquisitionTimes(row, pixel,
+        Calculator.getPixelPositionsAcquisitionTimes(y, pixel,
                                                      this.s0,
                                                      this.NADIR_VIEW_SCAN_PIX_NUM_ADS_Records,
                                                      this.FWARD_VIEW_SCAN_PIX_NUM_ADS_Records,
