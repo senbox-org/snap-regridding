@@ -27,11 +27,9 @@ import org.esa.snap.core.datamodel.ProductData;
 import org.esa.snap.core.datamodel.ProductNodeGroup;
 
 /**
- *
  * @author ABeaton, Telespazio VEGA UK Ltd 30/10/2013
- *
- * Contact: alasdhair(dot)beaton(at)telespazio(dot)com
- *
+ *         <p>
+ *         Contact: alasdhair(dot)beaton(at)telespazio(dot)com
  */
 class ScanAndPixelIndicesExtractor {
 
@@ -64,17 +62,11 @@ class ScanAndPixelIndicesExtractor {
         MetadataAttribute pixelNumbering = adsRecord.getAttribute("pix_num");
         short[] pixelNumbers = (short[]) pixelNumbering.getDataElems();
 
-        // Get instrument scan (s) and pixel (p) number for image pixel
+        /* Get instrument scan (s) and pixel (p) number for image pixel.
+            Modify the scan number if the image pixel comes from a granule inbetween the ADS samples (every 32 granules.
+         */
         int s = scanNumbers[jPixel] + idash;
         int p = (int) pixelNumbers[jPixel];
-
-        /* Modify the scan number if the image pixel comes from a granule inbetween the ADS samples (every 32 granules)
-         Note that if the scan number is 0, do not modify because this indicates that an image pixel is not valid
-         */
-
-//        if (idash != 0 && s != 0) {
-//            s += idash;
-//        }
 
         /* Return the indices */
 
