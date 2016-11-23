@@ -65,16 +65,16 @@ class ScanAndPixelIndicesExtractor {
         short[] pixelNumbers = (short[]) pixelNumbering.getDataElems();
 
         // Get instrument scan (s) and pixel (p) number for image pixel
-        int s = (int) scanNumbers[jPixel];
+        int s = scanNumbers[jPixel] + idash;
         int p = (int) pixelNumbers[jPixel];
 
         /* Modify the scan number if the image pixel comes from a granule inbetween the ADS samples (every 32 granules)
          Note that if the scan number is 0, do not modify because this indicates that an image pixel is not valid
          */
 
-        if (idash != 0 && s != 0) {
-            s += idash;
-        }
+//        if (idash != 0 && s != 0) {
+//            s += idash;
+//        }
 
         /* Return the indices */
 

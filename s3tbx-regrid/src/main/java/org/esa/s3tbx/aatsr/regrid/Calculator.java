@@ -21,10 +21,8 @@
 
 package org.esa.s3tbx.aatsr.regrid;
 
-import org.esa.snap.core.datamodel.Band;
 import org.esa.snap.core.datamodel.MetadataElement;
 import org.esa.snap.core.datamodel.ProductNodeGroup;
-//import org.orekit.propagation.BoundedPropagator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,11 +136,11 @@ class Calculator {
             pixelNewPositionsAndTimes[1] = -999999.0;
             pixelNewPositionsAndTimes[2] = -999999.0;
 
-        } else if (scanAndPixelIndices[0] <= 32) {
+//        } else if (scanAndPixelIndices[0] < 32) {
             // For the first scans (<32) where no ADS is available, fill with -888888.0
-            pixelNewPositionsAndTimes[0] = -888888.0;
-            pixelNewPositionsAndTimes[1] = -888888.0;
-            pixelNewPositionsAndTimes[2] = -888888.0;
+//            pixelNewPositionsAndTimes[0] = -888888.0;
+//            pixelNewPositionsAndTimes[1] = -888888.0;
+//            pixelNewPositionsAndTimes[2] = -888888.0;
 
         } else {
             PixelCoordinateInterpolator.searchScanPixelADS(scanAndPixelIndices, s0, scanPixelADS, firstNadirPixel, pixelCoordinatesAndTime);
